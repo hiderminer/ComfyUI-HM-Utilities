@@ -94,3 +94,4 @@ The node performs the following operations on input images:
 `image/processing`
 
 (c) hiderminer, 2025.
+
