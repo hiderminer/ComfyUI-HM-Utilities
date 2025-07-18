@@ -2,11 +2,6 @@
 
 A collection of custom nodes for ComfyUI that provides useful image processing tools.
 
-[![][github-release-shield]][github-release-link]
-[![][github-release-date-shield]][github-release-link]
-[![][github-downloads-shield]][github-downloads-link]
-[![][github-downloads-latest-shield]][github-downloads-link]
-
 ## Nodes
 
 ### AutoCropImage
