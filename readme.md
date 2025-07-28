@@ -1,4 +1,4 @@
-# ComfyUI-HM-Tools
+# ComfyUI-HM-Utilities
 
 A collection of custom nodes for ComfyUI that provides useful image processing tools.
 
