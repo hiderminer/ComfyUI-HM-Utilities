@@ -10,25 +10,32 @@ class AutoCropImage:
             "required": {
                 "image": ("IMAGE",),
             },
+            "optional": {
+                "mask": ("MASK",),
+            },
         }
     
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "auto_crop"
     CATEGORY = "image/processing"
     
-    def auto_crop(self, image: torch.Tensor) -> Tuple[torch.Tensor]:
+    def auto_crop(self, image: torch.Tensor, mask: torch.Tensor = None) -> Tuple[torch.Tensor]:
         batch_size, height, width, channels = image.shape
         result_images = []
         
         for i in range(batch_size):
             img = image[i]
             
-            if channels == 4:
-                alpha = img[:, :, 3]
+            if mask is not None:
+                current_mask = mask[i] if mask.dim() == 3 else mask
+                non_zero_indices = torch.nonzero(current_mask > 0)
             else:
-                alpha = torch.ones((height, width), dtype=image.dtype, device=image.device)
-            
-            non_zero_indices = torch.nonzero(alpha > 0)
+                if channels == 4:
+                    alpha = img[:, :, 3]
+                else:
+                    alpha = torch.ones((height, width), dtype=image.dtype, device=image.device)
+                
+                non_zero_indices = torch.nonzero(alpha > 0)
             
             if len(non_zero_indices) == 0:
                 result_images.append(img)
